@@ -61,7 +61,8 @@ jobs:
           # Realiza el commit de los cambios
           git commit -m "Bump version"
 
-          # Empuja los cambios a GitHub
+          # Empuja los cambios a GitHub usando el token de acceso personal (GITHUB_TOKEN)
+          git remote set-url origin https://x-access-token:${{ secrets.GIT_TOKEN }}@github.com/DalexR8824/lintik_prueba.git
           git push origin main
 
       # Paso 7: Desplegar a LocalStack o a la nube
