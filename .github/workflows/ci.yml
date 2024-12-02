@@ -38,10 +38,13 @@ jobs:
 
       - name: Increment version and update changelog
         run: |
-          # Aquí, puedes usar una herramienta como `bumpversion` para incrementar la versión
-          bumpversion patch --allow-dirty
+          # Instalar bumpversion
           pip install bumpversion
-          bumpversion patch  # Incrementa la versión minor
+          
+          # Incrementa la versión de tipo 'patch'
+          bumpversion patch --allow-dirty  # Permite hacer el cambio incluso si hay archivos modificados
+          
+          # Hacer commit y push de los cambios
           git commit -am "Bump version"
           git push
           
