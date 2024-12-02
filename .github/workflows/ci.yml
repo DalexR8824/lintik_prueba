@@ -52,14 +52,12 @@ jobs:
           echo "Contenido de VERSION después de bumpversion"
           cat VERSION  # Verifica si el archivo VERSION se actualizó
 
-          # Verifica el estado de Git
-          git status
+          # Verifica si hay cambios en el archivo VERSION
+          git diff --exit-code VERSION || echo "Cambios detectados en VERSION"
 
-          # Si hay cambios, hacer commit
+          # Si hay cambios, proceder con el commit
           git add VERSION .bumpversion.cfg
-
-          # Realiza el commit de los cambios
-          git commit -m "Bump version"
+          git commit -m "Bump version" || echo "No changes to commit"
 
           # Asegúrate de que el token sea accesible y lo uses para el push
           echo "Verificando si el token está disponible"
@@ -68,8 +66,8 @@ jobs:
           # Establece el repositorio remoto con el token para hacer push
           git remote set-url origin https://x-access-token:${{ secrets.GIT_TOKEN }}@github.com/DalexR8824/lintik_prueba.git
 
-          # Empuja los cambios a GitHub
-          git push origin main
+          # Empuja los cambios a GitHub solo si hay cambios
+          git push origin main || echo "No changes to push"
 
       # Paso 7: Desplegar a LocalStack o a la nube
       - name: Deploy to LocalStack or Cloud
