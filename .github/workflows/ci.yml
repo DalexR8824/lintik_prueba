@@ -36,20 +36,22 @@ jobs:
           # Asumimos que tienes pruebas definidas en tu proyecto
           pytest
 
+      - name: Set initial version
+        run: |
+          echo "0.1.0" > VERSION
+          git add VERSION .bumpversion.cfg
+          git commit -m "Add version tracking"
+          git push origin main
+
       - name: Increment version and update changelog
         run: |
-          # Instalar bumpversion
-          pip install bumpversion
-          
-          # Incrementa la versión de tipo 'patch'
-          bumpversion patch --allow-dirty  # Permite hacer el cambio incluso si hay archivos modificados
-          
-          # Hacer commit y push de los cambios
-          git commit -am "Bump version"
-          git push
-          
+          bumpversion patch --allow-dirty  # Incrementa la versión de tipo 'patch' (ejemplo 0.1.0 -> 0.1.1)
+          git status  # Verifica qué archivos se han modificado
+          git add VERSION  # Agrega el archivo VERSION al siguiente commit
+          git commit -m "Bump version"  # Crea un commit con el mensaje "Bump version"
+          git push origin main  # Empuja los cambios a la rama 'main' del repositorio en GitHub
+
       - name: Deploy to LocalStack or Cloud
         run: |
           # Aquí puedes agregar comandos para desplegar el servicio o realizar acciones específicas
           echo "Deploying to LocalStack or Cloud"
-
