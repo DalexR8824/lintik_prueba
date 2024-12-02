@@ -56,7 +56,7 @@ jobs:
           git commit -m "Bump version" 
 
           # Empujar los cambios a GitHub utilizando el token
-          git push https://github.com/${{ github.repository }}:${{ secrets.GIT_TOKEN }}@github.com/${{ github.repository }}.git
+          git push
 
       - name: Deploy to LocalStack or Cloud
         run: |
