@@ -64,7 +64,7 @@ jobs:
           # Si hay cambios pendientes, realizar el commit
           git commit -m "Bump version" || echo "No changes to commit"
 
-          # Empuja los cambios a GitHub usando el token de acceso personal (GITHUB_TOKEN)
+          # Empujar los cambios a GitHub usando el token de acceso personal (GIT_TOKEN)
           git remote set-url origin https://x-access-token:${{ secrets.GIT_TOKEN }}@github.com/DalexR8824/lintik_prueba.git
           git push origin main
 
