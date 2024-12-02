@@ -58,14 +58,17 @@ jobs:
           # Si hay cambios, hacer commit
           git add VERSION .bumpversion.cfg
 
-          # Verifica si hay cambios para hacer commit
-          git diff --cached
+          # Realiza el commit de los cambios
+          git commit -m "Bump version"
 
-          # Si hay cambios pendientes, realizar el commit
-          git commit -m "Bump version" || echo "No changes to commit"
+          # Asegúrate de que el token sea accesible y lo uses para el push
+          echo "Verificando si el token está disponible"
+          echo "GIT_TOKEN=${{ secrets.GIT_TOKEN }}"  # Verifica si el token está accesible
 
-          # Empujar los cambios a GitHub usando el token de acceso personal (GIT_TOKEN)
+          # Establece el repositorio remoto con el token para hacer push
           git remote set-url origin https://x-access-token:${{ secrets.GIT_TOKEN }}@github.com/DalexR8824/lintik_prueba.git
+
+          # Empuja los cambios a GitHub
           git push origin main
 
       # Paso 7: Desplegar a LocalStack o a la nube
