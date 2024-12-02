@@ -16,11 +16,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Git user
-        run: |
-         git config --global user.name "DavidRengifo"
-         git config --global user.email "david.rengifo88@gmail.com"
-
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
@@ -36,26 +31,14 @@ jobs:
           # Asumimos que tienes pruebas definidas en tu proyecto
           pytest
 
-      - name: Set initial version
-        run: |
-          echo "0.1.0" > VERSION
-          git add VERSION .bumpversion.cfg
-          git commit -m "Add version tracking"
-          git push origin main
-
       - name: Increment version and update changelog
         run: |
           # Incrementa la versión en el archivo VERSION
           bumpversion patch --allow-dirty
-          
-          # Muestra el contenido del archivo VERSION
-          cat VERSION
- 
           # Hacer commit de los cambios en VERSION
           git add VERSION
-          git commit -m "Bump version" 
-
-          # Empujar los cambios a GitHub utilizando el token
+          git commit -m "Bump version"
+          # Empujar los cambios a GitHub utilizando el token automáticamente
           git push
 
       - name: Deploy to LocalStack or Cloud
