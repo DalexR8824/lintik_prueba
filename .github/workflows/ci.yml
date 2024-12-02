@@ -45,11 +45,12 @@ jobs:
 
       - name: Increment version and update changelog
         run: |
-          bumpversion patch --allow-dirty  # Incrementa la versión de tipo 'patch' (ejemplo 0.1.0 -> 0.1.1)
-          git status  # Verifica qué archivos se han modificado
-          git add VERSION  # Agrega el archivo VERSION al siguiente commit
-          git commit -m "Bump version"  # Crea un commit con el mensaje "Bump version"
-          git push origin main  # Empuja los cambios a la rama 'main' del repositorio en GitHub
+          # Incrementa la versión en el archivo VERSION
+          bumpversion patch --allow-dirty
+          # Hacer commit de los cambios en VERSION
+          git commit -am "Bump version"
+          # Empujar los cambios a GitHub
+          git push origin main
 
       - name: Deploy to LocalStack or Cloud
         run: |
