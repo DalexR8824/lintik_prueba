@@ -58,8 +58,11 @@ jobs:
           # Si hay cambios, hacer commit
           git add VERSION .bumpversion.cfg
 
-          # Realiza el commit de los cambios
-          git commit -m "Bump version"
+          # Verifica si hay cambios para hacer commit
+          git diff --cached
+
+          # Si hay cambios pendientes, realizar el commit
+          git commit -m "Bump version" || echo "No changes to commit"
 
           # Empuja los cambios a GitHub usando el token de acceso personal (GITHUB_TOKEN)
           git remote set-url origin https://x-access-token:${{ secrets.GIT_TOKEN }}@github.com/DalexR8824/lintik_prueba.git
