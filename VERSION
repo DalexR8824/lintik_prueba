@@ -1,4 +1,4 @@
-echo "0.1.1" > VERSION
+echo "0.1.2" > VERSION
 git add VERSION .bumpversion.cfg
 git commit -m "Add version tracking"
 git push origin main
