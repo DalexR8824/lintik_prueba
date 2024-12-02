@@ -1,0 +1,46 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.8
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run tests
+        run: |
+          # Asumimos que tienes pruebas definidas en tu proyecto
+          pytest
+
+      - name: Increment version and update changelog
+        run: |
+          # Aquí, puedes usar una herramienta como `bumpversion` para incrementar la versión
+          pip install bumpversion
+          bumpversion patch  # Incrementa la versión minor
+          git commit -am "Bump version"
+          git push
+          
+      - name: Deploy to LocalStack or Cloud
+        run: |
+          # Aquí puedes agregar comandos para desplegar el servicio o realizar acciones específicas
+          echo "Deploying to LocalStack or Cloud"
+
