@@ -55,8 +55,8 @@ jobs:
           git add VERSION
           git commit -m "Bump version" 
 
-          # Empujar los cambios a GitHub
-          git push origin main
+          # Empujar los cambios a GitHub utilizando el token
+          git push https://github.com/${{ github.repository }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
 
       - name: Deploy to LocalStack or Cloud
         run: |
