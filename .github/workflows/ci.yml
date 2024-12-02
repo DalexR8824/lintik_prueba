@@ -43,9 +43,25 @@ jobs:
       # Paso 6: Incrementar la versión usando bumpversion
       - name: Increment version and update changelog
         run: |
+          echo "Contenido de VERSION antes de bumpversion"
+          cat VERSION  # Verifica el contenido de VERSION
+
+          # Forzar la actualización de la versión
           bumpversion patch --allow-dirty
+
+          echo "Contenido de VERSION después de bumpversion"
+          cat VERSION  # Verifica si el archivo VERSION se actualizó
+
+          # Verifica el estado de Git
+          git status
+
+          # Si hay cambios, hacer commit
           git add VERSION .bumpversion.cfg
+
+          # Realiza el commit de los cambios
           git commit -m "Bump version"
+
+          # Empuja los cambios a GitHub
           git push origin main
 
       # Paso 7: Desplegar a LocalStack o a la nube
