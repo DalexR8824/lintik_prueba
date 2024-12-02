@@ -47,8 +47,11 @@ jobs:
         run: |
           # Incrementa la versión en el archivo VERSION
           bumpversion patch --allow-dirty
+ 
           # Hacer commit de los cambios en VERSION
+          git add VERSION .bumpversion.cfg
           git commit -am "Bump version"
+ 
           # Empujar los cambios a GitHub
           git push origin main
 
